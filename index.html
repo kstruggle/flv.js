@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <title>直播</title>
+    <style>
+        html,body{
+          width: 100%;
+          height: 100%;
+          overflow: hidden;
+          background: black;
+          margin: 0;
+          padding: 0;
+        }
+        .mainContainer {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+        .centeredVideo {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+        /* .controls {
+            display: block;
+            width: 100%;
+            text-align: left;
+            margin-left: auto;
+            margin-right: auto;
+        } */
+    </style>
+</head>
+<body>
+    <div class="mainContainer">
+        <video id="videoElement" class="centeredVideo" controls autoplay="true" width="100%" height="100%">
+          Your browser is too old which doesn't support HTML5 video.
+        </video>
+    </div>
+    <br>
+    <!-- <div class="controls">
+        <button id="start" onclick="flv_start()">开始</button>
+    </div> -->
+    <script src="flv.js"></script>
+    <script>
+        function GetQueryString(name) {
+           var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+           var r = window.location.search.substr(1).match(reg);
+           if(r!=null)return unescape(r[2]); return null;
+        }
+        var ads = location.search.substring(1, location.search.length);
+        var urls=GetQueryString('url');
+        console.info(urls);
+        var player = document.getElementById('videoElement');
+        if (flvjs.isSupported()) {
+            var flvPlayer = flvjs.createPlayer({
+                type: 'flv',
+                url: urls
+            });
+            flvPlayer.attachMediaElement(videoElement);
+            flvPlayer.load(); //加载
+        }
+        function flv_start() {
+            player.play();
+        }
+    </script>
+</body>
+
+</html>
